@@ -12,6 +12,18 @@
     }
 </script>
 
+<svelte:head>
+    <title>Cló-Flash: Irish Orthography Lab</title>
+    <meta name="description" content="Master the traditional Irish script (Cló Gaelach) through visual discrimination.">
+    <meta property="og:title" content="Cló-Flash: Irish Orthography Lab">
+    <meta property="og:description" content="Interactive visual discrimination training for traditional Irish typography.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://github.com/Ian-J-Harkin/clo-flash">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Cló-Flash: Irish Orthography Lab">
+    <meta name="twitter:description" content="Master the 'Evil Twins' of Cló Gaelach.">
+</svelte:head>
+
 <main class="game-container">
     {#if !game.isGameStarted}
         <div class="welcome-screen card" transition:fade>
