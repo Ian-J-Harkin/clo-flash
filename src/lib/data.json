@@ -1,0 +1,26 @@
+{
+  "gate1": [
+    { "word": "am", "missing": "a", "options": ["a", "o"], "translation": "time" },
+    { "word": "glan", "missing": "g", "options": ["g", "d"], "translation": "clean" },
+    { "word": "gal", "missing": "g", "options": ["g", "c"], "translation": "steam" },
+    { "word": "láṁ", "missing": "l", "options": ["l", "i"], "translation": "hand" },
+    { "word": "mála", "missing": "a", "options": ["a", "e"], "translation": "bag" }
+  ],
+  "gate2": [
+    { "word": "fás", "missing": "f", "options": ["f", "s"], "translation": "growth" },
+    { "word": "súil", "missing": "s", "options": ["s", "f"], "translation": "eye" },
+    { "word": "rún", "missing": "r", "options": ["r", "n"], "translation": "secret" },
+    { "word": "neart", "missing": "n", "options": ["n", "r"], "translation": "strength" },
+    { "word": "fíor", "missing": "f", "options": ["f", "s"], "translation": "true" }
+  ],
+  "evilTwins": [
+    { "word": "fíor", "missing": "f", "options": ["f", "s"], "translation": "true" },
+    { "word": "síor", "missing": "s", "options": ["s", "f"], "translation": "eternal" },
+    { "word": "fás", "missing": "f", "options": ["f", "s"], "translation": "growth" },
+    { "word": "súil", "missing": "s", "options": ["s", "f"], "translation": "eye" },
+    { "word": "rún", "missing": "r", "options": ["r", "n"], "translation": "secret" },
+    { "word": "neart", "missing": "n", "options": ["n", "r"], "translation": "strength" },
+    { "word": "ré", "missing": "r", "options": ["r", "n"], "translation": "era" },
+    { "word": "néal", "missing": "n", "options": ["n", "r"], "translation": "cloud" }
+  ]
+}
