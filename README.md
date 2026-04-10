@@ -1,5 +1,7 @@
 # Cló-Flash: Traditional Irish Orthography Lab
 
+**[Official Repository](https://github.com/Ian-J-Harkin/clo-flash)**
+
 **Cló-Flash** is an educational Svelte 5 prototype designed to teach users how to read the **Traditional Irish Script** (*Cló Gaelach*). Specializing in **Visual Discrimination**, it uses sophisticated pedagogical "scaffolding" to help users master the subtle differences between similar characters like `f` and `s`.
 
 ---

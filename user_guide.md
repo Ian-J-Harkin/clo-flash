@@ -3,8 +3,9 @@
 Welcome to the Cló-Flash laboratory! This application is a gamified, dyslexia-friendly tool for mastering traditional Irish script (Cló Gaelach).
 
 ## How to Play
-1. **The Word View**: You will see an Irish word in the traditional script with one character missing (marked with a **?**).
-2. **The Choice**: Two buttons at the bottom offer options. Choose the correct character to complete the word.
+1. **The Orientation**: When you first load the lab, you will experience an interactive 3-slide walkthrough. This explains the specific challenges of Traditional Irish Script, highlights "discriminating features", and provides an interactive tutorial on feedback mechanics.
+2. **The Word View**: Once you start your training, you will see an Irish word in the traditional script with one character missing (marked with a **?**).
+3. **The Choice**: Two buttons at the bottom offer options. Choose the correct character to complete the word. You can also track your progress via the "Screen X of Y" scope indicator at the top of the interface.
 3. **The Gates**:
     - **Gate 1 (Basics)**: High-contrast shapes like `a`, `m`, `g`, and `l`.
     - **Gate 2 (Lookalikes)**: Specifically targets common visual confusion in the script, like `f` vs. `s`.

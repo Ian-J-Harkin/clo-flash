@@ -6,7 +6,21 @@ This guide contains step-by-step instructions to manually verify each of our uni
 - **Launch server**: `npm run dev` in your terminal.
 - **Link**: Open `http://localhost:5173` (or the port specified in your terminal).
 
-## 2. Phase 1 Verification (Basics)
+## 2. Onboarding & UI Navigation
+
+### TC-00a: Loading Sequence Verification
+- **Action**: Reload the page in your browser.
+- **Expected**: A smooth dark mode loading screen with "Cló-Flash" animating in from the sides, and a bouncing dot indicator. It should transition to the Onboarding walkthrough seamlessly.
+- **Goal**: Verify UI polish and loading transition capabilities.
+
+### TC-00b: Interactive Onboarding Flow
+- **Action**: From the loading screen, verify the Onboarding slide "Traditional Irish Orthography". Click "Continue".
+- **Action**: View "Visual Discrimination" visual aids and click "Continue".
+- **Action**: Complete the Interactive Demo on the third slide by making a wrong choice (seeing the hint) and then the correct choice.
+- **Expected**: The system should guide you fluidly back to the main "Welcome" orientation screen.
+- **Goal**: Verify the interactive multi-view state machine handling the introductory sequence.
+
+## 3. Phase 1 Verification (Basics)
 
 ### TC-01: Bionic Reading (Visual Check)
 - **Action**: Look at the word segments in Gate 1.

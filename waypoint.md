@@ -38,6 +38,14 @@ The Cló-Flash educational prototype is fully functional, verified by unit tests
 
 ---
 
+### 🎨 UI/UX & ONBOARDING (CURRENT SPRINT)
+- [x] **Loading Sequence**: Implement a polished loading screen with a high-impact title and CSS animations.
+- [x] **Application Orientation**: Create a multi-slide walkthrough (based on `README.md`) explaining the "Two-Gate" learning methodology.
+- [x] **Interactive Tutorial**: Interactive demo screen showing how the flashcard mechanics (choice selection, feedback) function.
+- [x] **Progress Scope Indicator**: Persistent "Screen X of Y" or progress bar to orient the user within the learning sequence.
+
+---
+
 ### 📝 NOTES
 - Current build uses `@sveltejs/adapter-auto`.
 - Local tests: `npx vitest run src/lib/useGame.test.js` (ALL PASS).

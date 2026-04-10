@@ -8,7 +8,7 @@ class GameEngine {
     isGameWon = $state(false);
     isEvilMode = $state(false);
     isPreparingEvilMode = $state(false);
-    isGameStarted = $state(false); // For the new startup screen
+    currentScreen = $state('LOADING'); // 'LOADING', 'ONBOARDING', 'WELCOME', 'GAME', 'BOSS_PREP', 'WON', 'GAMEOVER'
     currentIndex = $state(0);
     evilCount = $state(0);
     speed = $state(4000); 
@@ -18,6 +18,16 @@ class GameEngine {
 
     constructor() {
         this.shuffleCurrentOptions();
+    }
+
+    startLoadingTimer() {
+        if (this.currentScreen === 'LOADING') {
+            setTimeout(() => {
+                if (this.currentScreen === 'LOADING') {
+                    this.currentScreen = 'ONBOARDING';
+                }
+            }, 2200);
+        }
     }
 
     get currentWord() {
@@ -48,6 +58,7 @@ class GameEngine {
                 if (this.evilCount >= 20) {
                     this.isGameWon = true;
                     this.isEvilMode = false;
+                    this.currentScreen = 'WON';
                 } else {
                     this.currentIndex = Math.floor(Math.random() * data.evilTwins.length);
                     this.shuffleCurrentOptions();
@@ -60,6 +71,11 @@ class GameEngine {
             this.lives--;
             this.isHintVisible = true;
             
+            if (this.isGameOver) {
+                this.currentScreen = 'GAMEOVER';
+                this.clearTimer();
+            }
+
             const char = this.currentWord.missing;
             this.missedMap[char] = (this.missedMap[char] || 0) + 1;
             
@@ -87,6 +103,7 @@ class GameEngine {
                 this.shuffleCurrentOptions();
             } else {
                 this.isGameWon = true;
+                this.currentScreen = 'WON';
             }
         }
     }
@@ -99,7 +116,7 @@ class GameEngine {
         this.isGameWon = false;
         this.isEvilMode = false;
         this.isPreparingEvilMode = false;
-        this.isGameStarted = true;
+        this.currentScreen = 'WELCOME';
         this.currentIndex = 0;
         this.evilCount = 0;
         this.speed = 4000;
@@ -115,12 +132,14 @@ class GameEngine {
         this.evilCount = 0;
         this.speed = 4000;
         this.isGameWon = false;
+        this.currentScreen = 'BOSS_PREP';
         this.shuffleCurrentOptions();
     }
 
     launchEvilGauntlet() {
         this.isEvilMode = true;
         this.isPreparingEvilMode = false;
+        this.currentScreen = 'GAME';
         this.speed = 4000;
         this.evilCount = 0;
         this.shuffleCurrentOptions();
@@ -168,8 +187,12 @@ class GameEngine {
     }
 
     startGame() {
-        this.isGameStarted = true;
+        this.currentScreen = 'GAME';
         this.shuffleCurrentOptions();
+    }
+
+    goToScreen(screen) {
+        this.currentScreen = screen;
     }
 }
 

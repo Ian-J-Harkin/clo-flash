@@ -17,3 +17,9 @@
 - **Framework**: Svelte 5 (Runes) is effectively managing the game state transitions.
 - **Font**: Correctly configured `bungc.otf` in `app.css`.
 - **Latency**: Interaction feels immediate, critical for a flashcard-based game loop.
+
+## 4. UX and Onboarding Enhancements
+- **Loading Sequence & "Splash"**: A premium loading spinner ensures the DOM and fonts are fully painted before transitioning.
+- **Multi-Slide Walkthrough**: Added an orientation phase summarizing the application's underlying visual pedagogy. This helps frame the "game" as an educational tool.
+- **Interactive Turorial**: Embedded a functional mockup of the flashcard mechanics directly inside the walkthrough to teach the feedback loop prior to starting the game.
+- **State Machine Refactor**: Migrated from simple boolean toggles (`isGameStarted`) to an explicit screen state machine (`currentScreen: 'LOADING' | 'ONBOARDING' | 'WELCOME' | 'GAME' | ...`) for maintainable routing in a single-page context.

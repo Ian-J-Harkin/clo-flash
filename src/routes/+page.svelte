@@ -1,6 +1,8 @@
 <script>
     import { game } from '$lib/useGame.svelte.js';
     import Flashcard from '$lib/Flashcard.svelte';
+    import LoadingScreen from '$lib/LoadingScreen.svelte';
+    import Onboarding from '$lib/Onboarding.svelte';
     import { fade } from 'svelte/transition';
 
     function handleAnswer(choice) {
@@ -15,17 +17,16 @@
 <svelte:head>
     <title>Cló-Flash: Irish Orthography Lab</title>
     <meta name="description" content="Master the traditional Irish script (Cló Gaelach) through visual discrimination.">
-    <meta property="og:title" content="Cló-Flash: Irish Orthography Lab">
-    <meta property="og:description" content="Interactive visual discrimination training for traditional Irish typography.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://github.com/Ian-J-Harkin/clo-flash">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Cló-Flash: Irish Orthography Lab">
-    <meta name="twitter:description" content="Master the 'Evil Twins' of Cló Gaelach.">
 </svelte:head>
 
+{#if game.currentScreen === 'LOADING'}
+    <LoadingScreen />
+{:else if game.currentScreen === 'ONBOARDING'}
+    <Onboarding />
+{/if}
+
 <main class="game-container">
-    {#if !game.isGameStarted}
+    {#if game.currentScreen === 'WELCOME'}
         <div class="welcome-screen card" transition:fade>
             <div class="cló-header">Cló-Flash</div>
             <h2 class="sub-title">Irish Orthography Lab</h2>
@@ -51,11 +52,12 @@
 
             <button class="start-btn" onclick={() => game.startGame()}>Start Your Training</button>
         </div>
-    {:else}
+
+    {:else if game.currentScreen === 'GAME'}
         <header class="game-header" transition:fade>
             <div class="stats">
                 <span class="stat">GATE: {game.currentGate === 2 ? (game.isEvilMode ? 'BOSS' : '2') : '1'}</span>
-                <span class="stat">SCORE: {game.score}</span>
+                <span class="stat">SCREEN: {game.isEvilMode ? (game.evilCount + 1) : (game.currentIndex + 1)} / {game.isEvilMode ? 20 : 5}</span>
                 <span class="stat">LIVES: 
                     {#each Array(game.lives) as _, i}
                         <span class="heart" transition:fade>❤️</span>
@@ -71,56 +73,57 @@
             </div>
         </header>
 
-        {#if game.isGameWon}
-            <div class="game-won card" transition:fade>
-                <h2>Comhghairdeachas!</h2>
-                <div class="final-score">Final Score: {game.score}</div>
-                
-                <div class="boss-mode-offer">
-                    <h3>Proceed to Boss Level?</h3>
-                    <p>20 rapid-fire cards with increasing speed.</p>
-                    <button class="boss-btn" onclick={() => game.startEvilMode()}>Enter Evil Twins Mode</button>
-                </div>
+        <div class="stage" transition:fade>
+            {#key (game.currentWord?.word || '') + game.evilCount}
+                <Flashcard 
+                    currentWord={game.currentWord} 
+                    isHintVisible={game.isHintVisible} 
+                    gameSpeed={game.isEvilMode ? game.speed : 0}
+                    isEvilTitle={game.isEvilMode}
+                    evilCount={game.evilCount}
+                    onAnswer={handleAnswer} 
+                />
+            {/key}
+        </div>
+        
+        <div class="choice-container" transition:fade>
+            {#each game.shuffledOptions as option}
+                <button class="option-btn" onclick={() => handleAnswer(option)}>{option}</button>
+            {/each}
+        </div>
 
-                <button class="reset-btn secondary" onclick={handleReset}>Finish & Reset</button>
-            </div>
-        {:else if game.isPreparingEvilMode}
-            <div class="get-ready card" transition:fade>
-                <div class="evil-tag large">BOSS LEVEL</div>
-                <h2>Evil Twins Gauntlet</h2>
-                <div class="rules">
-                    <p>• <strong>20 Cards</strong> in a row.</p>
-                    <p>• <strong>Timer Pressure</strong>: Speed ramps up.</p>
-                    <p>• <strong>Goal</strong>: Identifiy instant recognition.</p>
-                </div>
-                <button class="boss-btn" onclick={() => game.launchEvilGauntlet()}>LÁNSEOL!</button>
-            </div>
-        {:else if !game.isGameOver}
-            <div class="stage" transition:fade>
-                {#key (game.currentWord?.word || '') + game.evilCount}
-                    <Flashcard 
-                        currentWord={game.currentWord} 
-                        isHintVisible={game.isHintVisible} 
-                        gameSpeed={game.isEvilMode ? game.speed : 0}
-                        isEvilTitle={game.isEvilMode}
-                        evilCount={game.evilCount}
-                        onAnswer={handleAnswer} 
-                    />
-                {/key}
-            </div>
+    {:else if game.currentScreen === 'WON'}
+        <div class="game-won card" transition:fade>
+            <h2>Comhghairdeachas!</h2>
+            <div class="final-score">Final Score: {game.score}</div>
             
-            <div class="choice-container" transition:fade>
-                {#each game.shuffledOptions as option}
-                    <button class="option-btn" onclick={() => handleAnswer(option)}>{option}</button>
-                {/each}
+            <div class="boss-mode-offer">
+                <h3>Proceed to Boss Level?</h3>
+                <p>20 rapid-fire cards with increasing speed.</p>
+                <button class="boss-btn" onclick={() => game.startEvilMode()}>Enter Evil Twins Mode</button>
             </div>
-        {:else}
-            <div class="game-over card" transition:fade>
-                <h2>Game Over!</h2>
-                <p>Final score: {game.score}</p>
-                <button class="reset-btn" onclick={handleReset}>Try Again</button>
+
+            <button class="reset-btn secondary" onclick={handleReset}>Finish & Reset</button>
+        </div>
+
+    {:else if game.currentScreen === 'BOSS_PREP'}
+        <div class="get-ready card" transition:fade>
+            <div class="evil-tag large">BOSS LEVEL</div>
+            <h2>Evil Twins Gauntlet</h2>
+            <div class="rules">
+                <p>• <strong>20 Cards</strong> in a row.</p>
+                <p>• <strong>Timer Pressure</strong>: Speed ramps up.</p>
+                <p>• <strong>Goal</strong>: Identifiy instant recognition.</p>
             </div>
-        {/if}
+            <button class="boss-btn" onclick={() => game.launchEvilGauntlet()}>LÁNSEOL!</button>
+        </div>
+
+    {:else if game.currentScreen === 'GAMEOVER'}
+        <div class="game-over card" transition:fade>
+            <h2>Game Over!</h2>
+            <p>Final score: {game.score}</p>
+            <button class="reset-btn" onclick={handleReset}>Try Again</button>
+        </div>
     {/if}
 </main>
 
